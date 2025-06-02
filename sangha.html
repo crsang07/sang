@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página zapatos </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+ <body>
+  <!-- Barra superior con slogan -->
+<div class="top-slogan">
+  Estilo que camina contigo 👟✨
+</div>
+
+ <header class="header">
+    <!-- Barra superior -->
+    <div class="menu container">
+      <!-- Logo redondo -->
+      <a href="#" class="logo">
+        <img src="img/logo5.jpeg" alt="Logo Shang Ha Shoes" />
+      </a>
+
+
+
+      <!-- Menú de navegación -->
+      <nav class="navbar">
+        <ul>
+          <li><a href="#">Inicio</a></li>
+    
+        </ul>
+      </nav>
+      
+   <div class="buscador">
+  <input type="text" id="busqueda" placeholder="Buscar productos..." onkeypress="detectarEnter(event)">
+  <button type="button" onclick="buscarProducto()">Buscar</button>
+</div>
+
+
+<!-- Registro y carrito -->
+<div class="registro-container">
+  <img src="img/user-icon.jpg" alt="registro" class="registro-icono" onclick="mostrarFormularioRegistro()" title="Registrarse" />
+  
+  <div id="formulario-registro" class="registro-formulario" style="display: none;">
+    <h2>Registro de Usuario</h2>
+    
+    <!--  Solo una etiqueta <form> -->
+    <form id="registro">
+      <input type="text" name="nombre" id="nombre" placeholder="Nombre completo" required />
+      <input type="email" name="email" id="email" placeholder="Correo electrónico" required />
+      <input type="password" name="password" id="password" placeholder="Contraseña" required />
+      <input type="password" name="confirmar" id="confirmar" placeholder="Confirmar contraseña" required />
+      <button type="submit" class="btn-enviar">Registrarse</button>
+    </form>
+    
+  </div>
+</div>
+
+<script>
+  function mostrarFormularioRegistro() {
+    const form = document.getElementById("formulario-registro");
+    form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+  }
+
+  document.getElementById("registro").addEventListener("submit", function (e) {
+    e.preventDefault();
+    
+    const nombre = document.getElementById("nombre").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmar = document.getElementById("confirmar").value;
+
+    if (password !== confirmar) {
+      alert("Las contraseñas no coinciden. Intenta nuevamente.");
+    } else {
+      alert(`¡Bienvenido, ${nombre}! Tu registro fue exitoso.`);
+      
+      // Edito aquí para enviar a un servidor y podrías usar fetch o AJAX 
+      document.getElementById("registro").reset();
+      document.getElementById("formulario-registro").style.display = "none";
+    }
+  });
+</script>
+
+        <ul>
+            <li class="submenu">
+                <img src="img/car.svg"id="img-carrito"alt="carrito">
+                <div id="carrito">
+<table id="lista-carrito">
+  <thead>
+    <tr>
+      <th>Imagen</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Cantidad</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4" style="text-align:right; font-weight:bold;">Total:</td>
+      <td id="total-carrito" style="font-weight:bold;">$0</td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
+                <a href="#" id="vaciar-carrito" class="btn-2"> Vaciar carrito</a>
+                <a href="#" id="pagar-carrito" class="btn-2">Pagar productos</a>
+             </div>
+            </li>
+        </ul>
+    </div>
+    </div>
+  
+    <!-- Formulario de pago (oculto al inicio) -->
+<div id="formulario-pago" style="display: none; background-color: #f9f9f9; padding: 20px; border: 1px solid #ccc;">
+  <h2>Formulario de Pago</h2>
+  <form id="pago-form">
+    <input type="text" name="nombre" placeholder="Nombre completo" required><br><br>
+    <input type="email" name="email" placeholder="Correo electrónico" required><br><br>
+    <input type="text" name="direccion" placeholder="Dirección de envío" required><br><br>
+    <input type="text" name="tarjeta" placeholder="Número de tarjeta" required><br><br>
+    <input type="text" name="cvv" placeholder="CVV" required><br><br>
+    <button type="submit" class="btn-2">Confirmar Pago</button>
+  </form>
+</div>
+
+<script>
+document.getElementById("pagar-carrito").addEventListener("click", function(e) {
+  e.preventDefault();
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  if (carrito.length === 0) {
+    alert("El carrito está vacío. Agrega productos antes de pagar.");
+    return;
+  }
+
+  document.getElementById("formulario-pago").style.display = "block";
+});
+
+document.getElementById("pago-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  alert("¡Gracias por tu compra! El pedido ha sido procesado.");
+  localStorage.removeItem("carrito"); // Vaciar carrito
+  document.getElementById("formulario-pago").style.display = "none";
+  location.reload(); // Recargar para actualizar vista del carrito
+});
+</script>
+
+    
+  <div class="header-contentcontainer ">
+    <div class="header-img">
+        <img src="img/right.jpg" alt="">
+
+  </div>
+  <div class="header-txt">
+   <h1>Ofertas especiales </h1>
+   <p>¡NIKE es tu mejor elección!</p>
+</div>
+</div>
+</header>
+
+<section class="ofert container">
+    <div class="ofert-1">
+    <!-- Producto 1 -->
+        <div class="ofert-img">
+        <img src="img/f1.jpg" alt="Producto 1">
+      </div>
+      <div class="ofert-txt">
+        <div class="producto" id="producto1">
+          <h3>Producto 1</h3>
+          <button class="info-btn" data-modal="modal-info1">Información</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 2 -->
+     <div class="ofert-1">
+        <div class="ofert-img">
+        <img src="img/f2.jpg" alt="Producto 2">
+      </div>
+      <div class="ofert-txt">
+        <div class="producto" id="producto2">
+          <h3>Producto 2</h3>
+          <button class="info-btn" data-modal="modal-info2">Información</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 3 -->
+     <div class="ofert-1">
+        <div class="ofert-img">
+        <img src="img/f3.jpg" alt="Producto 3">
+      </div>
+      <div class="ofert-txt">
+        <div class="producto" id="producto3">
+          <h3>Producto 3</h3>
+          <button class="info-btn" data-modal="modal-info3">Información</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ </section>
+  <!-- Modales -->
+<div id="modal-info1" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar">&times;</span>
+    <p>Zapatillas deportivas Air Jordan High OG "Sky Blue", diseñadas para ofrecer estilo retro y soporte alto ideal tanto para deporte como uso urbano.</p>
+    <ul>
+      <li>Tallas disponibles: 28 - 30</li>
+      <li>Color: Azul cielo con negro y blanco</li>
+      <li>Precio: $1500.00</li>
+    </ul>
+  </div>
+</div>
+
+<div id="modal-info2" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar">&times;</span>
+    <p>Nike Air Force 1 "Vintage Red", clásico renovado con estilo noventero, cuero de calidad y una entresuela cómoda, perfecto para el día a día.</p>
+    <ul>
+      <li>Tallas disponibles: 29 - 32</li>
+      <li>Color: Blanco hueso con rojo oscuro y suela café claro</li>
+      <li>Precio: $1300.00</li>
+    </ul>
+  </div>
+</div>
+
+<div id="modal-info3" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar">&times;</span>
+    <p>Nike Air Max "Float Garden", con un diseño artístico que fusiona elementos florales flotantes y tecnología Air Max para máximo confort.</p>
+    <ul>
+      <li>Tallas disponibles: 27 - 30</li>
+      <li>Color: Gris claro con negro, naranja y verde musgo</li>
+      <li>Precio: $1600.00</li>
+    </ul>
+  </div>
+</div>
+<style>
+  .ofert-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .ofert-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f9f9f9;
+  }
+
+  .ofert-img img {
+    width: 180px;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .ofert-txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+  }
+
+  .producto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .producto h3 {
+    color: black;
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .info-btn {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .modal-contenido {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    top: 20%;
+    animation: aparecer 0.3s ease-out;
+  }
+
+  @keyframes aparecer {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  .cerrar {
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .cerrar:hover {
+    color: red;
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll(".info-btn");
+  const modals = document.querySelectorAll(".modal");
+  const closeButtons = document.querySelectorAll(".cerrar");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const modalId = btn.getAttribute("data-modal");
+      document.getElementById(modalId).style.display = "block";
+    });
+  });
+
+  closeButtons.forEach(span => {
+    span.addEventListener("click", () => {
+      span.closest(".modal").style.display = "none";
+    });
+  });
+
+  window.addEventListener("click", event => {
+    modals.forEach(modal => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+</script>
+
+
+   <main class="products container" id="lista-1">
+    <h2>Productos</h2>
+      <div class="product-content">
+
+          <div class="product">
+        <img src="img/1.jpg" alt="">
+          <div class="producto-txt">
+        <h3> Air Force 1 Shodow</h3>
+        <p>Diseño moderno y ligero</p>
+        <p>Talla: 23 - 28</p>
+        <p>Color: Blanco y Naranja</p>
+           <p class="precio">$1200</p>
+         <a href="#" class="agregar-carrito btn-2" data-id="1">Agregar al carrito</a>
+          
+          </div>  
+        </div>
+        
+       <div class="product">
+        <img src="img/2.jpg" alt="">
+          <div class="producto-txt">
+        <h3> Durk Low Disrupt</h3>
+         <p>Estilo único y atrevido</p>
+        <p>Talla: 24 - 29</p>
+        <p>Color: Rosa y Rojo</p>
+        <p class="precio">$980</p>
+         <a href="#" class="agregar-carrito btn-2" data-id="2">Agregar al carrito</a>
+          
+          </div>  
+        </div>
+       
+      <div class="product">
+        <img src="img/3.jpg" alt="">
+          <div class="producto-txt">
+        <h3> Court Vsion Alt</h3>
+          <p>Inspirado en el estilo retro</p>
+        <p>Talla: 25 - 30</p>
+        <p>Color: dorado y Blanco</p>
+        <p class="precio">$850</p>
+         <a href="#" class="agregar-carrito btn-2" data-id="3">Agregar al carrito</a>
+          
+          </div>  
+        </div>
+
+        <div class="product">
+        <img src="img/4.jpg" alt="">
+          <div class="producto-txt">
+        <h3> Nike Cortez</h3>
+        <p>Clásico y cómodo</p>
+        <p>Talla: 22 - 27</p>
+        <p>Color: Blanco y Negro</p>
+        <p class="precio">$2000</p>
+         <a href="#" class="agregar-carrito btn-2" data-id="4">Agregar al carrito</a>
+          
+          </div>  
+        </div>
+    
+          <div class="product">
+        <img src="img/5.jpg" alt="">
+          <div class="producto-txt">
+        <h3> Air Max 90</h3>
+        <p>Máximo confort y rendimiento</p>
+        <p>Talla: 24 - 29</p>
+        <p>Color: Azul y Blanco</p>
+        <p class="precio">$750</p>
+         <a href="#" class="agregar-carrito btn-2" data-id="5">Agregar al carrito</a>
+          
+          </div>  
+        </div>
+       
+       <div class="product">
+        <img src="img/6.jpg" alt="">
+          <div class="producto-txt">
+        <h3> lazer Low Plataform</h3>
+         <p>Diseño elegante y casual</p>
+        <p>Talla: 23 - 28</p>
+        <p>Color: blanco y Beige</p>
+        <p class="precio">$1500</p>
+         <a href="#" class="agregar-carrito btn-2" data-id="6">Agregar al carrito</a>
+          
+          </div>  
+        </div>
+        </div>
+    </main>
+        <section class="blog container">
+
+          <div class="blog-1">
+          <img src="img/b1.jpg" alt="">
+          
+      
+          <h3>Blog 1</h3>
+          
+          <p> Estética futurista para un clásico renovado. Zapatillas Nike 
+            Blazer Mid '77 en blanco con detalles en púrpura, 
+            presentadas en una composición surrealista con elementos abstractos 
+            que evocan arte moderno y minimalismo. Una fusión de estilo retro y 
+            vanguardia visual.
+          </p>
+      
+        </div>
+           <div class="blog-1">
+            <img src="img/b2.jpg" alt="">
+        
+            <h3>Blog 2</h3>
+            
+            <p> Naturaleza y diseño en equilibrio. Zapatillas Nike Blazer Mid con 
+              swoosh marrón sobre fondo cálido y texturas orgánicas. La escena 
+              transmite calma, elegancia y una conexión sutil entre el diseño urbano 
+              y lo artesanal.
+            </p>
+        
+            </div>
+            <div class="blog-1">
+            <img src="img/b3.jpg" alt="">
+        
+            <h3>Blog 1</h3>
+            
+            <p> Del asfalto a la cancha. Zapatillas Nike Dunk High en blanco, 
+              negro y verde oliva sobre una cancha de básquet con miniatura de 
+              jugadores. Diseño urbano con esencia deportiva, capturando el espíritu 
+              acallejero y competitivo del sneaker culture.
+            </p>
+        
+            </div>
+           </section>
+ 
+  </div>
+</section>
+            <footer class="footer" style="background-color: #000; color: white;">
+  <div class="footer-content container" style="display: flex; flex-wrap: wrap; gap: 20px; padding: 30px 0;">
+    
+    <!-- Información de la tienda -->
+    <div class="link" style="flex: 1;">
+      <h3>Sang Ha Shoes</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li>Dirección: Calle Reforma 123, CDMX</li>
+        <li>Horario: Lunes a Sábado, 10:00 a.m. - 8:00 p.m.</li>
+        <li>Teléfono: +52 29 4152 2155</li>
+        <li>Email: contacto@sanghashoes.com</li>
+        <li>Pagina creada por: Cristy Juriana Herrera López</li>
+      </ul>
+    </div>
+
+    <!-- Mapa de Google -->
+    <div class="link" style="flex: 1;">
+      <h3>Ubicación</h3>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.7310972144055!2d-99.1738244!3d19.3890441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3bcffb1f0b%3A0x3fd3c57d3b9b03b6!2sCalle%20Reforma%20123%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1717171717171"
+        width="100%" height="200" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    
+    <!-- Redes sociales -->
+    <div class="link" style="flex: 1;">
+      <h3>Redes Sociales</h3>
+      <ul style="list-style: none; padding: 0;">
+        <ul>
+    <li><a href="https://www.facebook.com/share/1AbufyxTBA/" style="color: white;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" width="20"> Facebook</a>
+    </li>
+    <li><a href="https://www.instagram.com/sangha_shoes?igsh=MXM2b3VhZ2FxODU3cw%3D%3D&utm_source=qr" style="color: white;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="20"> Instagram</a>
+    </li>
+    <li><a href="https://whatsapp.com/channel/0029Vb5tbZiF1YlYR0dbVg3y" style="color: white;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="20"> WhatsApp</a>
+    </li>
+</ul>
+
+    </div>
+  </div>
+</footer>
+</select>
+
+
+<script src="carrito.js"></script>
+<script>
+function buscarProducto() {
+  const texto = document.getElementById("busqueda").value.toLowerCase().trim();
+
+  const palabrasMujer = ["dama", "mujer", "femenino", "para mujer", "zapatos mujer"];
+  const palabrasHombre = ["caballero", "hombre", "masculino", "para hombre", "zapatos hombre"];
+
+  if (palabrasMujer.some(palabra => texto.includes(palabra))) {
+    window.location.href = "Dama.html";
+  } else if (palabrasHombre.some(palabra => texto.includes(palabra))) {
+    window.location.href = "Caballero.html";
+  } else {
+    alert("Por favor escribe 'zapatos para dama' o 'zapatos para caballero'");
+  }
+}
+
+function detectarEnter(event) {
+  if (event.key === "Enter") {
+    buscarProducto();
+  }
+}
+</script>
+<script src="carrito.js"></script>
+      <script>
+    function mostrarFormularioRegistro() {
+      const form = document.getElementById("formulario-registro");
+      form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+  const lista = document.querySelector('#lista-carrito tbody');
+  const vaciarBtn = document.getElementById('vaciar-carrito');
+
+  function cargarCarrito() {
+    lista.innerHTML = '';
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    carrito.forEach(producto => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><img src="${producto.imagen}" width="100"/></td>
+        <td>${producto.nombre}</td>
+        <td>${producto.precio}</td>
+        <td><a href="#" class="borrar" data-id="${producto.id}">X</a></td>
+      `;
+      lista.appendChild(row);
+    });
+  }
+
+  lista.addEventListener('click', (e) => {
+    if (e.target.classList.contains('borrar')) {
+      const id = e.target.dataset.id;
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito = carrito.filter(item => item.id !== id);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      cargarCarrito();
+    }
+  });
+
+  vaciarBtn.addEventListener('click', () => {
+    localStorage.removeItem('carrito');
+    cargarCarrito();
+  });
+
+  cargarCarrito();
+});
+</script>
+</body>
+</html>
